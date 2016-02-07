@@ -18,17 +18,7 @@
               	      <include name="*.jar"/>
               	    </fileset>
               	  </path>
-    <path id="Web App Libraries.libraryclasspath">
-        <pathelement location="WebContent/WEB-INF/lib/ojdbc14.jar"/>
-    </path>
-    <path id="EAR Libraries.libraryclasspath"/>
-    <path id="userregistratio.classpath">
-        <pathelement location="build/classes"/>
-        <path refid="Apache Tomcat v8.0 [Apache Tomcat v8.0].libraryclasspath"/>
-        <path refid="Web App Libraries.libraryclasspath"/>
-        <path refid="EAR Libraries.libraryclasspath"/>
-        <pathelement location="../../../Desktop/DevOps/ojdbc14.jar/ojdbc14.jar"/>
-    </path>
+    
     <target name="init">
         <mkdir dir="build/classes"/>
         <copy includeemptydirs="false" todir="build/classes">
