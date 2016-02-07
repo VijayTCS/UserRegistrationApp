@@ -1,59 +1,34 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- WARNING: Eclipse auto-generated file.
-              Any modifications will be overwritten.
-              To include a user specific buildfile here, simply create one in the same
-              directory with the processing instruction <?eclipse.ant.import?>
-              as the first entry and export the buildfile again. --><project basedir="." default="build" name="userregistratio">
-    <property environment="env"/>
-    <property name="debuglevel" value="source,lines,vars"/>
-    <property name="tcserver.home" value="${basedir}/jars" />
-    <property name="target" value="1.8"/>
-    <property name="source" value="1.8"/>
-              	<path id="compile.classpath">
-              	    <fileset dir="${tcserver.home}/bin">
-              	      <include name="*.jar"/>
-              	    </fileset>
-              	    <pathelement location="${tcserver.home}/lib"/>
-              	    <fileset dir="${tcserver.home}/lib">
-              	      <include name="*.jar"/>
-              	    </fileset>
-              	  </path>
-    
-    <target name="init">
-        <mkdir dir="build/classes"/>
-        <copy includeemptydirs="false" todir="build/classes">
-            <fileset dir="src">
-                <exclude name="**/*.java"/>
-            </fileset>
-        </copy>
-    </target>
-    <target name="clean">
-        <delete dir="build/classes"/>
-    </target>
-    <target depends="clean" name="cleanall"/>
-    
-    <target name="build-subprojects"/>
-    <target depends="init" name="build-project">
-        <echo message="${ant.project.name}: ${ant.file}"/>
-        <javac debug="true" debuglevel="${debuglevel}" destdir="build/classes" includeantruntime="false" source="${source}" target="${target}">
-            <src path="src"/>
-            
-        </javac>
-    </target>
-    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
-              	
-              	<target name="build" description="Bundles the application as a WAR file" depends="build-subprojects,build-project">
-              	    <mkdir dir="WebContent/WEB-INF/classes"/>
-              	     
-              	    <copy includeemptydirs="false" todir="WebContent/WEB-INF/classes">
-              	            <fileset dir="build/classes">
-              	            <include name="**/*.class"/>
-              	            </fileset>
-              	    </copy>
-              	     
-              	    <war destfile="UserRegForm.war"
-              	        basedir="WebContent"
-              	        needxmlfile="false">
-              	    </war>
-              	</target>
+<?xml version="1.0" ?> 
+<project name="AntExample1" default="war">
+
+	<path id="compile.classpath">
+		<fileset dir="WebContent/WEB-INF/lib">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+	
+	<target name="init">
+		<mkdir dir="build/classes"/>
+		<mkdir dir="dist" />
+	</target>
+	
+	<target name="compile" depends="init" >
+		<javac destdir="build/classes" debug="true" srcdir="src">
+			<classpath refid="compile.classpath"/>
+		</javac>
+	</target>
+	
+	<target name="war" depends="compile">
+		<war destfile="dist/UserRegForm.war" webxml="WebContent/WEB-INF/web.xml">
+			<fileset dir="WebContent"/>
+			<lib dir="WebContent/WEB-INF/lib"/>
+			<classes dir="build/classes"/>
+		</war>
+	</target>
+	
+	<target name="clean">
+		<delete dir="dist" />
+		<delete dir="build" />
+	</target>
+	
 </project>
